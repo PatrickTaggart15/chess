@@ -40,4 +40,11 @@ public class ChessBoard {
     public void resetBoard() {
         throw new RuntimeException("Not implemented");
     }
+
+    public ChessGame.TeamColor getTeamOfSquare (ChessPosition position){
+        if (getPiece(position) != null) {
+            return getPiece(position).getTeamColor();
+        }
+        else return null;
+    }
 }
