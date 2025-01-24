@@ -72,7 +72,7 @@ public class ChessBoard {
         for (int y = 7; y >= 0; y--) {
             output.append("|");
             for (int x = 0; x < 8; x++) {
-                output.append(boardLayout[x][y] != null ? boardLayout[x][y].toString() : " ");
+                output.append(squares[x][y] != null ? squares[x][y].toString() : " ");
                 output.append("|");
             }
             output.append("\n");
@@ -85,11 +85,11 @@ public class ChessBoard {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChessBoard that = (ChessBoard) o;
-        return Arrays.deepEquals(boardLayout, that.boardLayout);
+        return Arrays.deepEquals(squares, that.squares);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.deepHashCode(boardLayout);
+        return Arrays.deepHashCode(squares);
     }
 }
