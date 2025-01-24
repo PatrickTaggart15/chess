@@ -7,7 +7,7 @@ import chess.ChessPosition;
 
 import java.util.HashSet;
 
-public class QueenMoveCalculator implements MoveCalculator {
+public class QueenMoveCalculator implements GenericMoveCalculator {
 
     public static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         int currX = currPosition.getColumn();
@@ -16,7 +16,7 @@ public class QueenMoveCalculator implements MoveCalculator {
 
         ChessGame.TeamColor team = board.getTeamOfSquare(currPosition);
 
-        return MoveCalculator.generateDirectionalMoves(board, currPosition, moveDirections, currY, currX, team);
+        return chess.MoveCalculators.GenericMoveCalculator.generateDirectionalMoves(board, currPosition, moveDirections, currY, currX, team);
     }
 
 }

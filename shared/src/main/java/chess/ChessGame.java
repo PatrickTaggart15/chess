@@ -114,21 +114,14 @@ public class ChessGame {
             }
         }
 
-        return false; //A piece wasn't found that can attack the king if it made it this far
+        return false;
     }
-
 
     public boolean isInCheckmate(TeamColor teamColor) {
         return isInCheck(teamColor) && isInStalemate(teamColor);
     }
 
-    /**
-     * Determines if the given team is in stalemate, which here is defined as having
-     * no valid moves
-     *
-     * @param teamColor which team to check for stalemate
-     * @return True if the specified team is in stalemate, otherwise false
-     */
+    //We know if it is in Stalemate if there isn't any available moves
     public boolean isInStalemate(TeamColor teamColor) {
         for (int y = 1; y <= 8; y++) {
             for (int x = 1; x <= 8; x++) {
@@ -147,19 +140,11 @@ public class ChessGame {
         return true;
     }
 
-    /**
-     * Sets this game's chessboard with a given board
-     *
-     * @param board the new board to use
-     */
+
     public void setBoard(ChessBoard board) {
         this.board = board;
     }
-    /**
-     * Gets the current chessboard
-     *
-     * @return the chessboard
-     */
+
     public ChessBoard getBoard() {
         return board;
     }
@@ -170,26 +155,5 @@ public class ChessGame {
 
     public boolean getGameOver() {
         return gameOver;
-    }
-
-    @Override
-    public String toString() {
-        return "ChessGame{" +
-                "teamTurn=" + teamTurn +
-                ", board=" + board +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChessGame chessGame = (ChessGame) o;
-        return teamTurn == chessGame.teamTurn && Objects.equals(board, chessGame.board);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(teamTurn, board);
     }
 }

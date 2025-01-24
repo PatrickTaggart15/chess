@@ -6,11 +6,11 @@ import chess.ChessPosition;
 
 import java.util.HashSet;
 
-public class KingMoveCalculator implements MoveCalculator {
+public class KingMoveCalculator implements GenericMoveCalculator {
 
     public static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         int[][] relativeMoves = {{-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}};
-        return MoveCalculator.generateStaticMoves(currPosition, relativeMoves, board);
+        return chess.MoveCalculators.GenericMoveCalculator.generateStaticMoves(currPosition, relativeMoves, board);
 
     }
 
