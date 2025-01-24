@@ -37,7 +37,7 @@ public class ChessBoard {
     }
 
     public void resetBoard() {
-        squares = new ChessPiece[8][8];
+        boardLayout = new ChessPiece[8][8];
 
         //Add all white pieces
         addPiece(new ChessPosition(1, 1), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
@@ -64,5 +64,32 @@ public class ChessBoard {
         for (int i = 1; i <= 8; i++) {
             addPiece(new ChessPosition(7, i), new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN));
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (int y = 7; y >= 0; y--) {
+            output.append("|");
+            for (int x = 0; x < 8; x++) {
+                output.append(boardLayout[x][y] != null ? boardLayout[x][y].toString() : " ");
+                output.append("|");
+            }
+            output.append("\n");
+        }
+        return output.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessBoard that = (ChessBoard) o;
+        return Arrays.deepEquals(boardLayout, that.boardLayout);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(boardLayout);
     }
 }
