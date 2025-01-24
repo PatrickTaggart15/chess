@@ -37,7 +37,7 @@ public class ChessBoard {
     }
 
     public void resetBoard() {
-        boardLayout = new ChessPiece[8][8];
+        squares = new ChessPiece[8][8];
 
         //Add all white pieces
         addPiece(new ChessPosition(1, 1), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
