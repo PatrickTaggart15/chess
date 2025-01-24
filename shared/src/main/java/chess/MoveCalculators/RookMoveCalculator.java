@@ -13,11 +13,11 @@ public class RookMoveCalculator implements GenericMoveCalculator {
     public static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         int currX = currPosition.getColumn();
         int currY = currPosition.getRow();
-        int[][] moveDirections = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int[][] potentialMoveDirections = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
         ChessGame.TeamColor team = board.getTeamOfSquare(currPosition);
 
-        return chess.MoveCalculators.GenericMoveCalculator.generateDirectionalMoves(board, currPosition, moveDirections, currY, currX, team);
+        return chess.MoveCalculators.GenericMoveCalculator.generateDirectionalMoves(board, currPosition, potentialMoveDirections, currY, currX, team);
     }
 
 }

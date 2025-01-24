@@ -12,11 +12,11 @@ public class BishopMoveCalculator implements GenericMoveCalculator {
     public static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         int currX = currPosition.getColumn();
         int currY = currPosition.getRow();
-        int[][] moveDirections = {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
+        int[][] potentialMoveDirections = {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
 
         ChessGame.TeamColor team = board.getTeamOfSquare(currPosition);
 
-        return chess.MoveCalculators.GenericMoveCalculator.generateDirectionalMoves(board, currPosition, moveDirections, currY, currX, team);
+        return chess.MoveCalculators.GenericMoveCalculator.generateDirectionalMoves(board, currPosition, potentialMoveDirections, currY, currX, team);
     }
 
 }
