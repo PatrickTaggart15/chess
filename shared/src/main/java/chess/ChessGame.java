@@ -85,12 +85,6 @@ public class ChessGame {
     }
 
 
-    /**
-     * Determines if the given team is in check
-     *
-     * @param teamColor which team to check for check
-     * @return True if the specified team is in check
-     */
     public boolean isInCheck(TeamColor teamColor) {
         ChessPosition kingPos = null;
         for (int y = 1; y <= 8 && kingPos == null; y++) { //Find the king
@@ -105,7 +99,7 @@ public class ChessGame {
             }
         }
 
-        // See if any enemy piece can attack the king
+        //This portion looks to see if any other piece is attacking the king
         for (int y = 1; y <= 8; y++) {
             for (int x = 1; x <= 8; x++) {
                 ChessPiece currPiece = board.getPiece(new ChessPosition(y, x));
@@ -123,12 +117,7 @@ public class ChessGame {
         return false; //A piece wasn't found that can attack the king if it made it this far
     }
 
-    /**
-     * Determines if the given team is in checkmate
-     *
-     * @param teamColor which team to check for checkmate
-     * @return True if the specified team is in checkmate
-     */
+
     public boolean isInCheckmate(TeamColor teamColor) {
         return isInCheck(teamColor) && isInStalemate(teamColor);
     }
