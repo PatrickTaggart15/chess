@@ -37,7 +37,7 @@ public class ChessPosition {
                 '}';
     }
 
-     */
+
 
     @Override
     public boolean equals(Object o) {
@@ -46,6 +46,8 @@ public class ChessPosition {
         ChessPosition that = (ChessPosition) o;
         return row == that.row && col == that.col;
     }
+
+     */
 
     @Override
     public int hashCode() {

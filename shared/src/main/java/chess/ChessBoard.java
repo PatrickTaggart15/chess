@@ -81,7 +81,7 @@ public class ChessBoard {
         return output.toString();
     }
 
-     */
+
 
     @Override
     public boolean equals(Object o) {
@@ -90,6 +90,8 @@ public class ChessBoard {
         ChessBoard that = (ChessBoard) o;
         return Arrays.deepEquals(squares, that.squares);
     }
+
+     */
 
     @Override
     public int hashCode() {
