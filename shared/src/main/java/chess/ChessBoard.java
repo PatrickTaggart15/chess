@@ -66,6 +66,7 @@ public class ChessBoard {
         }
     }
 
+    /*
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
@@ -79,6 +80,8 @@ public class ChessBoard {
         }
         return output.toString();
     }
+
+     */
 
     @Override
     public boolean equals(Object o) {
