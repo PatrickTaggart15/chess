@@ -56,7 +56,6 @@ public class ChessPiece {
         };
     }
 
-    /*
     @Override
     public String toString() {
         return switch (type) {
@@ -68,9 +67,6 @@ public class ChessPiece {
             case PAWN -> team == ChessGame.TeamColor.WHITE ? "P" : "p";
         };
     }
-
-
-     */
 
     @Override
     public boolean equals(Object o) {

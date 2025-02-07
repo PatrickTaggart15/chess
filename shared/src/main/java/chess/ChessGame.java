@@ -130,7 +130,7 @@ public class ChessGame {
                 ChessPiece currPiece = board.getPiece(currPosition);
                 Collection<ChessMove> moves;
 
-                if (currPiece != null && teamColor == currPiece.getTeamColor()) {
+                if (currPiece != null && currPiece.getTeamColor() == teamColor) {
                     moves = validMoves(currPosition);
                     if (moves != null && !moves.isEmpty()) {
                         return false; //if there's even one valid move, then it's not stalemate

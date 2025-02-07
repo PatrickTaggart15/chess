@@ -36,7 +36,7 @@ public class ChessMove {
         return promotionPiece;
     }
 
-    /*
+
     @Override
     public String toString() {
         return "ChessMove{" +
@@ -45,8 +45,6 @@ public class ChessMove {
                 ", promotionPiece=" + promotionPiece +
                 '}';
     }
-
-     */
 
     @Override
     public boolean equals(Object o) {

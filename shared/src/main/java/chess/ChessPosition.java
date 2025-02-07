@@ -28,7 +28,7 @@ public class ChessPosition {
         return col;
     }
 
-    /*
+
     @Override
     public String toString() {
         return "ChessPosition{" +
@@ -36,9 +36,6 @@ public class ChessPosition {
                 ", col=" + col +
                 '}';
     }
-
-     */
-
 
     @Override
     public boolean equals(Object o) {
