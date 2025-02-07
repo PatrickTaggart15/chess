@@ -28,6 +28,7 @@ public class ChessPosition {
         return col;
     }
 
+    /*
     @Override
     public String toString() {
         return "ChessPosition{" +
@@ -36,6 +37,8 @@ public class ChessPosition {
                 '}';
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,6 +46,8 @@ public class ChessPosition {
         ChessPosition that = (ChessPosition) o;
         return row == that.row && col == that.col;
     }
+
+     */
 
     @Override
     public int hashCode() {

@@ -56,6 +56,7 @@ public class ChessPiece {
         };
     }
 
+    /*
     @Override
     public String toString() {
         return switch (type) {
@@ -68,6 +69,8 @@ public class ChessPiece {
         };
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,6 +78,8 @@ public class ChessPiece {
         ChessPiece that = (ChessPiece) o;
         return team == that.team && type == that.type;
     }
+
+     */
 
     @Override
     public int hashCode() {
