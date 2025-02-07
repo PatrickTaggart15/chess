@@ -81,6 +81,7 @@ public class ChessBoard {
         return output.toString();
     }
 
+     */
 
 
     @Override
@@ -91,7 +92,7 @@ public class ChessBoard {
         return Arrays.deepEquals(squares, that.squares);
     }
 
-     */
+
 
     @Override
     public int hashCode() {

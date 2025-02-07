@@ -70,6 +70,7 @@ public class ChessPiece {
     }
 
 
+     */
 
     @Override
     public boolean equals(Object o) {
@@ -79,7 +80,6 @@ public class ChessPiece {
         return team == that.team && type == that.type;
     }
 
-     */
 
     @Override
     public int hashCode() {

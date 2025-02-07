@@ -61,7 +61,7 @@ public class ChessGame {
         return validMoves;
     }
 
-    /*
+
     public void makeMove(ChessMove move) throws InvalidMoveException {
         boolean isTeamsTurn = getTeamTurn() == board.getTeamOfSquare(move.getStartPosition());
         Collection<ChessMove> goodMoves = validMoves(move.getStartPosition());
@@ -84,7 +84,7 @@ public class ChessGame {
             throw new InvalidMoveException(String.format("Valid move: %b  Your Turn: %b", isValidMove, isTeamsTurn));
         }
     }
-    */
+
 
     public boolean isInCheck(TeamColor teamColor) {
         ChessPosition kingPos = null;

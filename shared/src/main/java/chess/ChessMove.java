@@ -46,7 +46,7 @@ public class ChessMove {
                 '}';
     }
 
-
+     */
 
     @Override
     public boolean equals(Object o) {
@@ -56,7 +56,6 @@ public class ChessMove {
         return Objects.equals(startPosition, chessMove.startPosition) && Objects.equals(endPosition, chessMove.endPosition) && promotionPiece == chessMove.promotionPiece;
     }
 
-     */
 
     @Override
     public int hashCode() {

@@ -37,6 +37,7 @@ public class ChessPosition {
                 '}';
     }
 
+     */
 
 
     @Override
@@ -47,7 +48,6 @@ public class ChessPosition {
         return row == that.row && col == that.col;
     }
 
-     */
 
     @Override
     public int hashCode() {
