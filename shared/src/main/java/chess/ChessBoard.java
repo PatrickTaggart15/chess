@@ -10,23 +10,33 @@ import java.util.Arrays;
  */
 public class ChessBoard {
 
-    private ChessPiece[][] squares;
+    private ChessPiece[][] boardLayout;
 
     public ChessBoard() {
-        squares = new ChessPiece[8][8];
+        boardLayout = new ChessPiece[8][8];
     }
 
-
+    /**
+     * Adds a chess piece to the chessboard
+     *
+     * @param position where to add the piece to
+     * @param piece    the piece to add
+     */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        //Minus one to account for difference in indexing. The board is indexed 0-7
-        // but the players see 1-8
-        squares[position.getColumn()-1][position.getRow()-1] = piece;
+        //Minus one to account for arrays starting at 0
+        boardLayout[position.getColumn()-1][position.getRow()-1] = piece;
     }
 
-
+    /**
+     * Gets a chess piece on the chessboard
+     *
+     * @param position The position to get the piece from
+     * @return Either the piece at the position, or null if no piece is at that
+     * position
+     */
     public ChessPiece getPiece(ChessPosition position) {
-        //Same as above, this helps us fix any indexing problems.
-        return squares[position.getColumn()-1][position.getRow()-1];
+        //Minus one to account for arrays starting at 0
+        return boardLayout[position.getColumn()-1][position.getRow()-1];
     }
 
     public ChessGame.TeamColor getTeamOfSquare(ChessPosition position) {
@@ -36,8 +46,12 @@ public class ChessBoard {
         else return null;
     }
 
+    /**
+     * Sets the board to the default starting board
+     * (How the game of chess normally starts)
+     */
     public void resetBoard() {
-        squares = new ChessPiece[8][8];
+        boardLayout = new ChessPiece[8][8];
 
         //Add all white pieces
         addPiece(new ChessPosition(1, 1), new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
@@ -66,14 +80,13 @@ public class ChessBoard {
         }
     }
 
-
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int y = 7; y >= 0; y--) {
             output.append("|");
             for (int x = 0; x < 8; x++) {
-                output.append(squares[x][y] != null ? squares[x][y].toString() : " ");
+                output.append(boardLayout[x][y] != null ? boardLayout[x][y].toString() : " ");
                 output.append("|");
             }
             output.append("\n");
@@ -81,19 +94,16 @@ public class ChessBoard {
         return output.toString();
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChessBoard that = (ChessBoard) o;
-        return Arrays.deepEquals(squares, that.squares);
+        return Arrays.deepEquals(boardLayout, that.boardLayout);
     }
-
-
 
     @Override
     public int hashCode() {
-        return Arrays.deepHashCode(squares);
+        return Arrays.deepHashCode(boardLayout);
     }
 }

@@ -21,7 +21,9 @@ public class ChessPiece {
         this.type = type;
     }
 
-
+    /**
+     * The various different chess piece options
+     */
     public enum PieceType {
         KING,
         QUEEN,
@@ -31,19 +33,26 @@ public class ChessPiece {
         PAWN
     }
 
-
+    /**
+     * @return Which team this chess piece belongs to
+     */
     public ChessGame.TeamColor getTeamColor() {
         return team;
     }
 
-
+    /**
+     * @return which type of chess piece this piece is
+     */
     public PieceType getPieceType() {
         return type;
     }
 
     /**
      * Calculates all the positions a chess piece can move to
-     * This does think about moves that are illegal via the potential King Danger.
+     * Does not take into account moves that are illegal due to leaving the king in
+     * danger
+     *
+     * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         return switch (type) {
@@ -75,7 +84,6 @@ public class ChessPiece {
         ChessPiece that = (ChessPiece) o;
         return team == that.team && type == that.type;
     }
-
 
     @Override
     public int hashCode() {

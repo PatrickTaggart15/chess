@@ -18,16 +18,21 @@ public class ChessPosition {
         this.col = col;
     }
 
-
+    /**
+     * @return which row this position is in
+     * 1 codes for the bottom row
+     */
     public int getRow() {
         return row;
     }
 
-
+    /**
+     * @return which column this position is in
+     * 1 codes for the left row
+     */
     public int getColumn() {
         return col;
     }
-
 
     @Override
     public String toString() {
@@ -44,7 +49,6 @@ public class ChessPosition {
         ChessPosition that = (ChessPosition) o;
         return row == that.row && col == that.col;
     }
-
 
     @Override
     public int hashCode() {
