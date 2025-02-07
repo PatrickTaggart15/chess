@@ -144,7 +144,7 @@ public class ChessGame {
             }
         }
 
-        return false; //A piece wasn't found that can attack the king if it made it this far
+        return false;
     }
 
     /**
@@ -153,6 +153,8 @@ public class ChessGame {
      * @param teamColor which team to check for checkmate
      * @return True if the specified team is in checkmate
      */
+
+    //Similar to the Stalemate. The different is the is in check
     public boolean isInCheckmate(TeamColor teamColor) {
         if(!isInCheck(teamColor)){
             return false;
@@ -203,15 +205,7 @@ public class ChessGame {
         }
         return true;
     }
-    /*
-                    if ( currPiece != null && currPiece.getPieceType() == ChessPiece.PieceType.KING && currPiece.getTeamColor() == teamColor){
-        kingMoves = validMoves(currPosition);
-        if (kingMoves != null && kingMoves.isEmpty()) {
-            //If the king can't move we have a stalemate
-            return false;
-        }
-    }
-    */
+
 
 
     /**
