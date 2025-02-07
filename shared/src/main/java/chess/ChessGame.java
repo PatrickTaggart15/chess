@@ -124,7 +124,7 @@ public class ChessGame {
 
     //We know if it is in Stalemate if there isn't any available moves
     public boolean isInStalemate(TeamColor teamColor) {
-        for (int y = 1; y <= 8; y++) {
+        for (int y = 1; y <= 8; y++){
             for (int x = 1; x <= 8; x++) {
                 ChessPosition currPosition = new ChessPosition(y, x);
                 ChessPiece currPiece = board.getPiece(currPosition);
