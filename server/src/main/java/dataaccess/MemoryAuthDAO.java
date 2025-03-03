@@ -9,6 +9,7 @@ public class MemoryAuthDAO implements AuthDAO {
     HashSet<AuthData> db;
 
     public MemoryAuthDAO() {
+
         db = HashSet.newHashSet(16);
     }
 
