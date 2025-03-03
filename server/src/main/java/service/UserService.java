@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public AuthData loginUser(UserData userData) throws UnauthorizedException {
-        boolean userAuthenticated;
+        boolean userAuthenticated = false;
         try {
             userAuthenticated = userDAO.authenticateUser(userData.username(), userData.password());
         } catch (DataAccessException e) {
@@ -58,13 +58,6 @@ public class UserService {
         authDAO.deleteAuth(authToken);
     }
 
-    public AuthData getAuth(String authToken) throws UnauthorizedException {
-        try {
-            return authDAO.getAuth(authToken);
-        } catch (DataAccessException e) {
-            throw new UnauthorizedException();
-        }
-    }
 
     public void clear() {
         userDAO.clear();
