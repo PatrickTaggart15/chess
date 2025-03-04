@@ -1,6 +1,6 @@
 package chess;
 
-import chess.MoveCalculators.*;
+import chess.calculators.*;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -56,12 +56,12 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         return switch (type) {
-            case KING -> KingMoveCalculator.getMoves(board, myPosition);
-            case QUEEN -> QueenMoveCalculator.getMoves(board, myPosition);
-            case BISHOP -> BishopMoveCalculator.getMoves(board, myPosition);
-            case KNIGHT -> KnightMoveCalculator.getMoves(board, myPosition);
-            case ROOK -> RookMoveCalculator.getMoves(board, myPosition);
-            case PAWN -> PawnMoveCalculator.getMoves(board, myPosition);
+            case KING -> king_move_calculator.getMoves(board, myPosition);
+            case QUEEN -> queen_move_calculator.getMoves(board, myPosition);
+            case BISHOP -> bishop_move_calculator.getMoves(board, myPosition);
+            case KNIGHT -> knight_move_calculator.getMoves(board, myPosition);
+            case ROOK -> rook_move_calculator.getMoves(board, myPosition);
+            case PAWN -> pawn_move_calculator.getMoves(board, myPosition);
         };
     }
 
@@ -79,8 +79,12 @@ public class ChessPiece {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         ChessPiece that = (ChessPiece) o;
         return team == that.team && type == that.type;
     }

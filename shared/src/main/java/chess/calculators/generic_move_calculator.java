@@ -1,4 +1,4 @@
-package chess.MoveCalculators;
+package chess.calculators;
 
 import chess.ChessBoard;
 import chess.ChessGame;
@@ -7,7 +7,7 @@ import chess.ChessPosition;
 
 import java.util.HashSet;
 
-public interface GenericMoveCalculator {
+public interface generic_move_calculator {
 
     static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         return null;
@@ -28,20 +28,22 @@ public interface GenericMoveCalculator {
         ChessGame.TeamColor team = board.getTeamOfSquare(currPosition);
         for (int[] relativeMove : relativeMoves) {
             ChessPosition possiblePosition = new ChessPosition(currY + relativeMove[1], currX + relativeMove[0]);
-            if (chess.MoveCalculators.GenericMoveCalculator.isValidSquare(possiblePosition) && board.getTeamOfSquare(possiblePosition) != team)
+            if (generic_move_calculator.isValidSquare(possiblePosition) && board.getTeamOfSquare(possiblePosition) != team) {
                 moves.add(new ChessMove(currPosition, possiblePosition, null));
+            }
         }
         return moves;
     }
 
-    static HashSet<ChessMove> generateDirectionalMoves(ChessBoard board, ChessPosition currPosition, int[][] moveDirections, int currY, int currX, ChessGame.TeamColor team) {
+    static HashSet<ChessMove> generateDirectionalMoves(ChessBoard board, ChessPosition currPosition,
+                                                       int[][] moveDirections, int currY, int currX, ChessGame.TeamColor team) {
         HashSet<ChessMove> moves = HashSet.newHashSet(27);
         for (int[] direction : moveDirections) {
             boolean obstructed = false;
             int i = 1;
             while (!obstructed) {
                 ChessPosition possiblePosition = new ChessPosition(currY + direction[1]*i, currX + direction[0]*i);
-                if (!chess.MoveCalculators.GenericMoveCalculator.isValidSquare(possiblePosition)) {
+                if (!generic_move_calculator.isValidSquare(possiblePosition)) {
                     obstructed = true;
                 }
                 else if (board.getPiece(possiblePosition) == null) {

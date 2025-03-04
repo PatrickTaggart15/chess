@@ -1,6 +1,6 @@
 package dataaccess;
 
-import dataModelClasses.GameData;
+import data_model_classes.GameData;
 
 import java.util.HashSet;
 

@@ -1,11 +1,10 @@
 package service;
 
 import dataaccess.*;
-import dataModelClasses.AuthData;
-import dataModelClasses.GameData;
+import data_model_classes.AuthData;
+import data_model_classes.GameData;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameService {
@@ -76,10 +75,14 @@ public class GameService {
         }
 
         if (color.equals("WHITE")) {
-            if (whiteUser != null) return false; // Spot taken
+            if (whiteUser != null) {
+                return false; // Spot taken
+            }
             whiteUser = authData.username();
         } else { // color == "BLACK"
-            if (blackUser != null) return false; // Spot taken
+            if (blackUser != null) {
+                return false; // Spot taken
+            }
             blackUser = authData.username();
         }
 

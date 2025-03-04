@@ -1,6 +1,6 @@
 package dataaccess;
 
-import dataModelClasses.UserData;
+import data_model_classes.UserData;
 
 import java.util.HashSet;
 

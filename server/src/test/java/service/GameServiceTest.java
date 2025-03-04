@@ -1,10 +1,9 @@
 package service;
 
 import dataaccess.*;
-import dataModelClasses.AuthData;
-import dataModelClasses.GameData;
+import data_model_classes.AuthData;
+import data_model_classes.GameData;
 import org.junit.jupiter.api.*;
-import service.GameService;
 
 import java.util.HashSet;
 

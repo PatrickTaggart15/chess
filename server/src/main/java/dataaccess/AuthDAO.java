@@ -1,6 +1,6 @@
 package dataaccess;
 
-import dataModelClasses.AuthData;
+import data_model_classes.AuthData;
 
 public interface AuthDAO {
 

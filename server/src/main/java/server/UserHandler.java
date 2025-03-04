@@ -1,12 +1,10 @@
 package server;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import dataaccess.BadRequestException;
-import dataaccess.DataAccessException;
 import dataaccess.UnauthorizedException;
-import dataModelClasses.AuthData;
-import dataModelClasses.UserData;
+import data_model_classes.AuthData;
+import data_model_classes.UserData;
 import service.UserService;
 import spark.Request;
 import spark.Response;
