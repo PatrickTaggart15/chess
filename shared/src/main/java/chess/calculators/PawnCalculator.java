@@ -4,7 +4,7 @@ import chess.*;
 
 import java.util.HashSet;
 
-public class pawn_move_calculator implements generic_move_calculator {
+public class PawnCalculator implements GenericCalculator {
 
     public static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         HashSet<ChessMove> moves = HashSet.newHashSet(16); //16 is the max number of moves of a Pawn
@@ -24,13 +24,13 @@ public class pawn_move_calculator implements generic_move_calculator {
         for (ChessPiece.PieceType promotionPiece : promotionPieces) {
             //Forward
             ChessPosition forwardMove = new ChessPosition(currY + moveIncrement, currX);
-            if (generic_move_calculator.isValidSquare(forwardMove) && board.getPiece(forwardMove) == null) {
+            if (GenericCalculator.isValidSquare(forwardMove) && board.getPiece(forwardMove) == null) {
                 moves.add(new ChessMove(currPosition, forwardMove, promotionPiece));
             }
 
             //doubleForwardMove
             ChessPosition doubleForwardMove = new ChessPosition(currY + moveIncrement*2, currX);
-            if (generic_move_calculator.isValidSquare(doubleForwardMove) &&
+            if (GenericCalculator.isValidSquare(doubleForwardMove) &&
                     ((team == ChessGame.TeamColor.WHITE && currY == 2) || (team == ChessGame.TeamColor.BLACK && currY == 7)) &&
                     board.getPiece(doubleForwardMove) == null &&
                     board.getPiece(forwardMove) == null) {
@@ -39,14 +39,14 @@ public class pawn_move_calculator implements generic_move_calculator {
 
             //attackLeft
             ChessPosition attackLeft = new ChessPosition(currY + moveIncrement, currX-1);
-            if (generic_move_calculator.isValidSquare(attackLeft) &&
+            if (GenericCalculator.isValidSquare(attackLeft) &&
                     board.getPiece(attackLeft) != null &&
                     board.getTeamOfSquare(attackLeft) != team) {
                 moves.add(new ChessMove(currPosition, attackLeft, promotionPiece));
             }
             //attackRight
             ChessPosition attackRight = new ChessPosition(currY + moveIncrement, currX+1);
-            if (generic_move_calculator.isValidSquare(attackRight) &&
+            if (GenericCalculator.isValidSquare(attackRight) &&
                     board.getPiece(attackRight) != null &&
                     board.getTeamOfSquare(attackRight) != team) {
                 moves.add(new ChessMove(currPosition, attackRight, promotionPiece));

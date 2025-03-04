@@ -56,12 +56,12 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         return switch (type) {
-            case KING -> king_move_calculator.getMoves(board, myPosition);
-            case QUEEN -> queen_move_calculator.getMoves(board, myPosition);
-            case BISHOP -> bishop_move_calculator.getMoves(board, myPosition);
-            case KNIGHT -> knight_move_calculator.getMoves(board, myPosition);
-            case ROOK -> rook_move_calculator.getMoves(board, myPosition);
-            case PAWN -> pawn_move_calculator.getMoves(board, myPosition);
+            case KING -> KingCalculator.getMoves(board, myPosition);
+            case QUEEN -> QueenCalculator.getMoves(board, myPosition);
+            case BISHOP -> BishopCalculator.getMoves(board, myPosition);
+            case KNIGHT -> KnightCalculator.getMoves(board, myPosition);
+            case ROOK -> RookCalculator.getMoves(board, myPosition);
+            case PAWN -> PawnCalculator.getMoves(board, myPosition);
         };
     }
 

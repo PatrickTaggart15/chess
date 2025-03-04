@@ -1,4 +1,4 @@
-package data_model_classes;
+package model;
 
 import java.util.HashSet;
 

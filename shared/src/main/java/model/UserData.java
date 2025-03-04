@@ -1,3 +1,3 @@
-package data_model_classes;
+package model;
 
 public record UserData(String username, String password, String email) {}

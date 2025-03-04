@@ -7,16 +7,16 @@ import chess.ChessPosition;
 
 import java.util.HashSet;
 
-public class queen_move_calculator implements generic_move_calculator {
+public class BishopCalculator implements GenericCalculator {
 
     public static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         int currX = currPosition.getColumn();
         int currY = currPosition.getRow();
-        int[][] potentialMoveDirections = {{-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}};
+        int[][] potentialMoveDirections = {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
 
         ChessGame.TeamColor team = board.getTeamOfSquare(currPosition);
 
-        return generic_move_calculator.generateDirectionalMoves(board, currPosition, potentialMoveDirections, currY, currX, team);
+        return GenericCalculator.generateDirectionalMoves(board, currPosition, potentialMoveDirections, currY, currX, team);
     }
 
 }

@@ -1,8 +1,8 @@
 package service;
 
 import dataaccess.*;
-import data_model_classes.AuthData;
-import data_model_classes.UserData;
+import model.AuthData;
+import model.UserData;
 import org.junit.jupiter.api.*;
 
 public class UserServiceTest {

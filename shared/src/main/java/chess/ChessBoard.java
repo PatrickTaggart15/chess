@@ -43,7 +43,9 @@ public class ChessBoard {
         if (getPiece(position) != null) {
             return getPiece(position).getTeamColor();
         }
-        else return null;
+        else {
+            return null;
+        }
     }
 
     /**

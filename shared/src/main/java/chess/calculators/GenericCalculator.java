@@ -7,7 +7,7 @@ import chess.ChessPosition;
 
 import java.util.HashSet;
 
-public interface generic_move_calculator {
+public interface GenericCalculator {
 
     static HashSet<ChessMove> getMoves(ChessBoard board, ChessPosition currPosition) {
         return null;
@@ -28,7 +28,7 @@ public interface generic_move_calculator {
         ChessGame.TeamColor team = board.getTeamOfSquare(currPosition);
         for (int[] relativeMove : relativeMoves) {
             ChessPosition possiblePosition = new ChessPosition(currY + relativeMove[1], currX + relativeMove[0]);
-            if (generic_move_calculator.isValidSquare(possiblePosition) && board.getTeamOfSquare(possiblePosition) != team) {
+            if (GenericCalculator.isValidSquare(possiblePosition) && board.getTeamOfSquare(possiblePosition) != team) {
                 moves.add(new ChessMove(currPosition, possiblePosition, null));
             }
         }
@@ -43,7 +43,7 @@ public interface generic_move_calculator {
             int i = 1;
             while (!obstructed) {
                 ChessPosition possiblePosition = new ChessPosition(currY + direction[1]*i, currX + direction[0]*i);
-                if (!generic_move_calculator.isValidSquare(possiblePosition)) {
+                if (!GenericCalculator.isValidSquare(possiblePosition)) {
                     obstructed = true;
                 }
                 else if (board.getPiece(possiblePosition) == null) {
