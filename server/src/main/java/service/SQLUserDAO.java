@@ -1,4 +1,4 @@
-package dataaccess;
+package service;
 
 import model.UserData;
 import org.eclipse.jetty.server.Authentication;
