@@ -1,7 +1,9 @@
 package server;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import dataaccess.BadRequestException;
+import dataaccess.DataAccessException;
 import dataaccess.UnauthorizedException;
 import model.AuthData;
 import model.UserData;
@@ -37,6 +39,7 @@ public class UserHandler {
 
     public Object login(Request req, Response resp) throws UnauthorizedException, BadRequestException {
         UserData userData = new Gson().fromJson(req.body(), UserData.class);
+
         AuthData authData = userService.loginUser(userData);
 
         resp.status(200);

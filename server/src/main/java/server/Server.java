@@ -2,7 +2,6 @@ package server;
 
 
 import dataaccess.*;
-import org.eclipse.jetty.websocket.api.Session;
 import service.GameService;
 import service.UserService;
 import spark.*;

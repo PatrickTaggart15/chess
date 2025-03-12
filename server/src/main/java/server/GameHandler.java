@@ -2,9 +2,9 @@ package server;
 
 import com.google.gson.Gson;
 import dataaccess.BadRequestException;
+import dataaccess.DataAccessException;
 import dataaccess.UnauthorizedException;
 import model.GameData;
-import model.GamesList;
 import service.GameService;
 import spark.Request;
 import spark.Response;
@@ -20,11 +20,10 @@ public class GameHandler {
 
     public Object listGames(Request req, Response resp) throws UnauthorizedException {
         String authToken = req.headers("authorization");
-        GamesList games = new GamesList(gameService.listGames(authToken));
+        HashSet<GameData> games = gameService.listGames(authToken);
         resp.status(200);
-        return new Gson().toJson(games);
+        return "{ \"games\": %s}".formatted(new Gson().toJson(games));
     }
-
 
     public Object createGame(Request req, Response resp) throws BadRequestException, UnauthorizedException {
 
