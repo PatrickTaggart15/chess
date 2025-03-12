@@ -3,6 +3,7 @@ package service;
 import dataaccess.*;
 import model.AuthData;
 import model.UserData;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.UUID;
 
@@ -19,7 +20,9 @@ public class UserService {
     public AuthData createUser(UserData userData) throws BadRequestException {
 
         try {
-            userDAO.createUser(userData);
+            String hashedPassword = BCrypt.hashpw(userData.password(), BCrypt.gensalt());
+            UserData hashed_user_data = new UserData(userData.username(), hashedPassword, userData.email());
+            userDAO.createUser(hashed_user_data);
         } catch (DataAccessException e) {
             throw new BadRequestException(e.getMessage());
         }
@@ -33,6 +36,7 @@ public class UserService {
     public AuthData loginUser(UserData userData) throws UnauthorizedException {
         boolean userAuthenticated = false;
         try {
+
             userAuthenticated = userDAO.authenticateUser(userData.username(), userData.password());
         } catch (DataAccessException e) {
             throw new UnauthorizedException();

@@ -26,6 +26,10 @@ public class Server {
 
     public Server() {
 
+        try { DatabaseManager.createDatabase(); } catch (DataAccessException ex) {
+            throw new RuntimeException(ex);
+        }
+
         userDAO = new SQLUserDAO();
         authDAO = new SQLAuthDAO();
         gameDAO = new SQLGameDAO();
@@ -36,9 +40,6 @@ public class Server {
         userHandler = new UserHandler(userService);
         gameHandler = new GameHandler(gameService);
 
-        try { DatabaseManager.createDatabase(); } catch (DataAccessException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 
     public int run(int desiredPort) {
@@ -46,7 +47,6 @@ public class Server {
 
         Spark.staticFiles.location("web");
 
-        Spark.webSocket("/connect", WebsocketHandler.class);
 
         Spark.delete("/db", this::clear);
         Spark.post("/user", userHandler::register);
