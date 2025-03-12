@@ -21,6 +21,8 @@ public class Server {
     UserHandler userHandler;
     GameHandler gameHandler;
 
+    static ConcurrentHashMap<Session, Integer> gameSessions = new ConcurrentHashMap<>();
+
     public Server() {
 
         userDAO = new SQLUserDAO();
