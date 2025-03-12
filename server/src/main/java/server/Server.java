@@ -15,8 +15,8 @@ public class Server {
     AuthDAO authDAO;
     GameDAO gameDAO;
 
-    UserService userService;
-    GameService gameService;
+    static UserService userService;
+    static GameService gameService;
 
     UserHandler userHandler;
     GameHandler gameHandler;
