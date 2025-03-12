@@ -1,7 +1,7 @@
 package server;
 
-
 import dataaccess.*;
+import org.eclipse.jetty.websocket.api.Session;
 import service.GameService;
 import service.UserService;
 import spark.*;
@@ -9,6 +9,7 @@ import spark.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
+
 
     UserDAO userDAO;
     AuthDAO authDAO;
@@ -20,6 +21,7 @@ public class Server {
     UserHandler userHandler;
     GameHandler gameHandler;
 
+    // {Session: gameID}
     static ConcurrentHashMap<Session, Integer> gameSessions = new ConcurrentHashMap<>();
 
     public Server() {
@@ -37,16 +39,13 @@ public class Server {
         try { DatabaseManager.createDatabase(); } catch (DataAccessException ex) {
             throw new RuntimeException(ex);
         }
-
     }
-
 
     public int run(int desiredPort) {
         Spark.port(desiredPort);
 
         Spark.staticFiles.location("web");
 
-        // Register your endpoints and handle exceptions here.
         Spark.webSocket("/connect", WebsocketHandler.class);
 
         Spark.delete("/db", this::clear);
@@ -61,7 +60,7 @@ public class Server {
         Spark.exception(BadRequestException.class, this::badRequestExceptionHandler);
         Spark.exception(UnauthorizedException.class, this::unauthorizedExceptionHandler);
         Spark.exception(Exception.class, this::genericExceptionHandler);
-        //This line initializes the server and can be removed once you have a functioning endpoint
+
 
         Spark.awaitInitialization();
         return Spark.port();
@@ -73,9 +72,9 @@ public class Server {
     }
 
     public void clearDB() {
-            userService.clear();
-            gameService.clear();
-        }
+        userService.clear();
+        gameService.clear();
+    }
 
     private Object clear(Request req, Response resp) {
 
