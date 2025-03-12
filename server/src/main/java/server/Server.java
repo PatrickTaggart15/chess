@@ -23,15 +23,19 @@ public class Server {
 
     public Server() {
 
-        userDAO = new MemoryUserDAO();
-        authDAO = new MemoryAuthDAO();
-        gameDAO = new MemoryGameDAO();
+        userDAO = new SQLUserDAO();
+        authDAO = new SQLAuthDAO();
+        gameDAO = new SQLGameDAO();
 
         userService = new UserService(userDAO, authDAO);
         gameService = new GameService(gameDAO, authDAO);
 
         userHandler = new UserHandler(userService);
         gameHandler = new GameHandler(gameService);
+
+        try { DatabaseManager.createDatabase(); } catch (DataAccessException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 
@@ -42,7 +46,7 @@ public class Server {
         Spark.staticFiles.location("web");
 
         // Register your endpoints and handle exceptions here.
-        //Spark.webSocket("/connect", WebsocketHandler.class);
+        Spark.webSocket("/connect", WebsocketHandler.class);
 
         Spark.delete("/db", this::clear);
         Spark.post("/user", userHandler::register);
@@ -67,10 +71,14 @@ public class Server {
         Spark.awaitStop();
     }
 
+    public void clearDB() {
+            userService.clear();
+            gameService.clear();
+        }
+
     private Object clear(Request req, Response resp) {
 
-        userService.clear();
-        gameService.clear();
+        clearDB();
 
         resp.status(200);
         return "{}";
