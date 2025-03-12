@@ -1,12 +1,8 @@
-package service;
+package dataaccess;
 
 import model.UserData;
-import org.eclipse.jetty.server.Authentication;
 
-import javax.xml.crypto.Data;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashSet;
 
 public class SQLUserDAO implements UserDAO {
 

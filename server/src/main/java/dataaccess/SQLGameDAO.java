@@ -1,8 +1,7 @@
-package service;
+package dataaccess;
 package dataaccess;
 
 import chess.ChessGame;
-import model.AuthData;
 import model.GameData;
 
 import java.sql.SQLException;

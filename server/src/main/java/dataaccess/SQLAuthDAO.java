@@ -1,11 +1,9 @@
-package service;
+package dataaccess;
 
 import model.AuthData;
-import model.UserData;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashSet;
 
 public class SQLAuthDAO implements AuthDAO {
 
