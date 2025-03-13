@@ -33,19 +33,20 @@ public class UserService {
         return authData;
     }
 
-    public AuthData loginUser(UserData userData) throws UnauthorizedException {
+    public AuthData loginUser(UserData userRequestData) throws UnauthorizedException {
         boolean userAuthenticated = false;
-        //Rehash the password
-        String hashedPassword = BCrypt.hashpw(userData.password(), BCrypt.gensalt());
 
-        //Check is the hashed password and the regular password are the same
-        userAuthenticated = BCrypt.checkpw(userData.password(), hashedPassword);
-        //userAuthenticated = userDAO.authenticateUser(userData.username(), userData.password());
-
+        try {
+            //Rehash the password
+            String password = userDAO.getUser(userRequestData.username()).password();
+            userAuthenticated = BCrypt.checkpw(userRequestData.password(), password);
+        } catch (DataAccessException noUser){
+            throw new UnauthorizedException();
+        }
 
         if (userAuthenticated) {
             String authToken = UUID.randomUUID().toString();
-            AuthData authData = new AuthData(userData.username(), authToken);
+            AuthData authData = new AuthData(userRequestData.username(), authToken);
             authDAO.addAuth(authData);
             return authData;
         }

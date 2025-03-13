@@ -155,7 +155,7 @@ public class ChessGame {
      */
 
 
-    public boolean chessHelper(){
+    public boolean chessHelper(TeamColor teamColor){
         for (int y = 1; y <= 8; y++) {
             for (int x = 1; x <= 8; x++) {
                 ChessPosition currPosition = new ChessPosition(y, x);
@@ -171,6 +171,7 @@ public class ChessGame {
                 }
             }
         }
+        return true;
     }
 
     //Similar to the Stalemate. The different is the is in check
@@ -178,8 +179,7 @@ public class ChessGame {
         if(!isInCheck(teamColor)){
             return false;
         }
-        chessHelper();
-        return true;
+        return chessHelper(teamColor);
     }
 
     /**
@@ -193,8 +193,7 @@ public class ChessGame {
         if (isInCheck(teamColor)){
             return false;
         }
-        chessHelper();
-        return true;
+        return chessHelper(teamColor);
     }
 
 
