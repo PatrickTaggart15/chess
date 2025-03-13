@@ -154,11 +154,8 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
 
-    //Similar to the Stalemate. The different is the is in check
-    public boolean isInCheckmate(TeamColor teamColor) {
-        if(!isInCheck(teamColor)){
-            return false;
-        }
+
+    public boolean chessHelper(){
         for (int y = 1; y <= 8; y++) {
             for (int x = 1; x <= 8; x++) {
                 ChessPosition currPosition = new ChessPosition(y, x);
@@ -174,6 +171,14 @@ public class ChessGame {
                 }
             }
         }
+    }
+
+    //Similar to the Stalemate. The different is the is in check
+    public boolean isInCheckmate(TeamColor teamColor) {
+        if(!isInCheck(teamColor)){
+            return false;
+        }
+        chessHelper();
         return true;
     }
 
@@ -188,21 +193,7 @@ public class ChessGame {
         if (isInCheck(teamColor)){
             return false;
         }
-        for (int y = 1; y <= 8; y++) {
-            for (int x = 1; x <= 8; x++) {
-                ChessPosition currPosition = new ChessPosition(y, x);
-                ChessPiece currPiece = board.getPiece(currPosition);
-                Collection<ChessMove> moves;
-
-                if (currPiece != null && currPiece.getTeamColor() == teamColor) {
-                    moves = validMoves(currPosition);
-                    if (moves != null && !moves.isEmpty()) {
-                        //Any Move will result in false
-                        return false;
-                    }
-                }
-            }
-        }
+        chessHelper();
         return true;
     }
 
