@@ -10,7 +10,7 @@ public class SQLGameDAO implements GameDAO {
 
     public SQLGameDAO() {
         try (var conn = DatabaseManager.getConnection()) {
-            conn.setCatalog("chess");
+            //conn.setCatalog("chess");
             var createTestTable = """            
                      CREATE TABLE if NOT EXISTS game (
                                      gameID INT NOT NULL,
