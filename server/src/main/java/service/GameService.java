@@ -38,8 +38,11 @@ public class GameService {
             gameID = ThreadLocalRandom.current().nextInt(1, 10000);
         } while (gameDAO.gameExists(gameID));
 
-        gameDAO.createGame(new GameData(gameID, null, null, gameName, null));
-
+        try {
+            gameDAO.createGame(new GameData(gameID, null, null, gameName, null));
+        }catch(DataAccessException e){
+           return -1;
+        }
         return gameID;
     }
 
@@ -85,9 +88,12 @@ public class GameService {
             }
             blackUser = authData.username();
         }
-
-        gameDAO.updateGame(new GameData(gameID, whiteUser, blackUser, gameData.gameName(), gameData.game()));
-        return true;
+        try {
+            gameDAO.updateGame(new GameData(gameID, whiteUser, blackUser, gameData.gameName(), gameData.game()));
+            return true;
+        }catch(DataAccessException e){
+            return false;
+        }
     }
 
     public void clear() {

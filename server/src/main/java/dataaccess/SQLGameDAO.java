@@ -51,7 +51,7 @@ public class SQLGameDAO implements GameDAO {
     }
 
     @Override
-    public void createGame(GameData game) {
+    public void createGame(GameData game) throws DataAccessException{
         try (var conn = DatabaseManager.getConnection()) {
             try (var statement = conn.prepareStatement("INSERT INTO game (gameID, whiteUsername, blackUsername, gameName, chessGame) VALUES(?, ?, ?, ?, ?)")) {
                 statement.setInt(1, game.gameID());
@@ -62,7 +62,7 @@ public class SQLGameDAO implements GameDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException | DataAccessException e) {
-            return;
+            throw new DataAccessException(e.getMessage());
         }
     }
 
@@ -100,7 +100,7 @@ public class SQLGameDAO implements GameDAO {
     }
 
     @Override
-    public void updateGame(GameData game) {
+    public void updateGame(GameData game) throws DataAccessException{
         try (var conn = DatabaseManager.getConnection()) {
             try (var statement = conn.prepareStatement("UPDATE game SET whiteUsername=?, blackUsername=?, gameName=?, chessGame=? WHERE gameID=?")) {
                 statement.setString(1, game.whiteUsername());
@@ -111,7 +111,7 @@ public class SQLGameDAO implements GameDAO {
                 statement.executeUpdate();
             }
         } catch (SQLException | DataAccessException e) {
-            return;
+            throw new DataAccessException(e.getMessage());
         }
     }
 

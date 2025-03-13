@@ -1,5 +1,7 @@
 package chess;
 
+import com.google.gson.Gson;
+
 import java.util.*;
 
 /**
@@ -225,10 +227,7 @@ public class ChessGame {
 
     @Override
     public String toString() {
-        return "ChessGame{" +
-                "teamTurn=" + teamTurn +
-                ", board=" + board +
-                '}';
+        return new Gson().toJson(this);
     }
 
     @Override

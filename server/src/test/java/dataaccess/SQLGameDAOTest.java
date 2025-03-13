@@ -73,7 +73,8 @@ class SQLGameDAOTest {
 
     @Test
     void createGameNegative() throws DataAccessException {
-        dao.createGame(defaultGameData);
+        GameData failedGame = new GameData(1234, "white", "black", null , null);
+        dao.createGame(failedGame);
         assertThrows(DataAccessException.class, () -> dao.createGame(defaultGameData));
 
     }
@@ -135,7 +136,8 @@ class SQLGameDAOTest {
 
     @Test
     void updateGameNegative() {
-        assertThrows(DataAccessException.class, () -> dao.updateGame(defaultGameData));
+        GameData failedGame = new GameData(1234, "white", "black", null , null);
+        assertThrows(DataAccessException.class, () -> dao.updateGame(failedGame));
     }
 
     @Test
