@@ -78,12 +78,7 @@ class SQLAuthDAOTest {
         }
     }
 
-    @Test
-    void deleteAuthPositive() throws DataAccessException, SQLException {
-        dao.addAuth(defaultAuth);
-
-        dao.deleteAuth(defaultAuth.authToken());
-
+    void testHelper() throws DataAccessException,SQLException{
         try (var conn = DatabaseManager.getConnection()) {
             try (var statement = conn.prepareStatement("SELECT username, authToken FROM auth WHERE username=?")) {
                 statement.setString(1, defaultAuth.username());
@@ -92,6 +87,15 @@ class SQLAuthDAOTest {
                 }
             }
         }
+    }
+
+    @Test
+    void deleteAuthPositive() throws DataAccessException, SQLException {
+        dao.addAuth(defaultAuth);
+
+        dao.deleteAuth(defaultAuth.authToken());
+
+        testHelper();
     }
 
     @Test
@@ -118,13 +122,6 @@ class SQLAuthDAOTest {
         dao.addAuth(defaultAuth);
         dao.clear();
 
-        try (var conn = DatabaseManager.getConnection()) {
-            try (var statement = conn.prepareStatement("SELECT username, authToken FROM auth WHERE username=?")) {
-                statement.setString(1, defaultAuth.username());
-                try (var results = statement.executeQuery()) {
-                    assertFalse(results.next()); //There should be no elements
-                }
-            }
-        }
+        testHelper();
     }
 }
