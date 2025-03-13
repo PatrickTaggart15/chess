@@ -21,8 +21,8 @@ public class UserService {
 
         try {
             String hashedPassword = BCrypt.hashpw(userData.password(), BCrypt.gensalt());
-            UserData hashed_user_data = new UserData(userData.username(), hashedPassword, userData.email());
-            userDAO.createUser(hashed_user_data);
+            UserData hashedUserData = new UserData(userData.username(), hashedPassword, userData.email());
+            userDAO.createUser(hashedUserData);
         } catch (DataAccessException e) {
             throw new BadRequestException(e.getMessage());
         }
