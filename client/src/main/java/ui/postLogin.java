@@ -1,8 +1,12 @@
 package ui;
 
+import chess.ChessBoard;
+import chess.ChessGame;
 import client.ServerFacadeTests;
+import model.GameData;
+import ui.EscapeSequences.*;
 
-import java.util.Scanner;
+import java.util.*;
 
 import static java.lang.System.out;
 import static ui.EscapeSequences.*;
