@@ -13,12 +13,40 @@ public class preLogin {
     postLogin postLogin;
 
     public void run(){
+        boolean loggedIn = false;
+        out.print(RESET_TEXT_COLOR + RESET_BG_COLOR);
+        out.println("Whats up? You here for chess? Enter 'help' to get started.");
+        while (!loggedIn) {
+            String[] input = getUserInput();
+            switch (input[0]) {
+                case "quit":
+                    return;
+                case "help":
+                    printHelpMenu();
+                case "login":
+                    if (input.length != 3) {
+                        out.println("Provide a username and password");
+                        printLogin();
+                        break;
+                    }
+                    if (server.login(input[1], input[2])) {
+                        out.println("Login Successful");
+                        loggedIn = true;
+                        break;
+                    }
+                    else {
+                        out.println("Username or password incorrect, please try again");
+                        printLogin();
+                        break;
+                    }
+                default:
+                    out.println("Command not recognized, please try again");
+                    printHelpMenu();
+                    break;
 
-    }
-
-    public preLogin(ServerFacadeTests server) {
-        this.server = server;
-        postLogin = new postLogin(server);
+            }
+        }
+        postLogin.run();
     }
 
     private String[] getUserInput(){
