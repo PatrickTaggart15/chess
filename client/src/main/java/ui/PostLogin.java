@@ -39,7 +39,7 @@ public class PostLogin {
                     break;
                 case "create":
                     if (input.length != 2) {
-                        out.println("Please provide a name");
+                        out.println("Provide a super sweet name");
                         printCreate();
                         break;
                     }
@@ -48,23 +48,23 @@ public class PostLogin {
                     break;
                 case "join":
                     if (input.length != 3) {
-                        out.println("Please provide a game ID and color choice");
+                        out.println("Provide a game ID and radical color choice");
                         printJoin();
                         break;
                     }
                     GameData joinGame = games.get(Integer.parseInt(input[1]));
                     if (server.joinGame(joinGame.gameID(), input[2].toUpperCase())) {
-                        out.println("You have joined the game");
+                        out.println("You have joined the game! Good luck!!");
                         new BoardPrinter(joinGame.game().getBoard()).printBoard();
                         break;
                     } else {
-                        out.println("Game does not exist or color taken");
+                        out.println("Game does not exist or color taken. Sorry bro :(");
                         printJoin();
                         break;
                     }
                 case "observe":
                     if (input.length != 2) {
-                        out.println("Please provide a game ID");
+                        out.println("Provide a game ID");
                         printObserve();
                         break;
                     }
@@ -74,7 +74,7 @@ public class PostLogin {
                         new BoardPrinter(observeGame.game().getBoard()).printBoard();
                         break;
                     } else {
-                        out.println("Game does not exist");
+                        out.println("Game does not exist. Sorry bro :(");
                         printObserve();
                         break;
                     }
