@@ -1,6 +1,6 @@
 package ui;
 
-import client.ServerFacadeTests;
+import client.ServerFacade;
 import model.GameData;
 
 import java.util.*;
@@ -8,12 +8,12 @@ import java.util.*;
 import static java.lang.System.out;
 import static ui.EscapeSequences.*;
 
-public class postLogin {
+public class PostLogin {
 
-    ServerFacadeTests server;
+    ServerFacade server;
     List<GameData> games;
 
-    public postLogin(ServerFacadeTests server) {
+    public PostLogin(ServerFacade server) {
         this.server = server;
         games = new ArrayList<>();
     }
@@ -85,8 +85,8 @@ public class postLogin {
             }
         }
 
-        preLogin prelogin = new preLogin(server);
-        preLogin.run();
+        PreLogin prelogin = new PreLogin(server);
+        PreLogin.run();
     }
 
     private String[] getUserInput() {

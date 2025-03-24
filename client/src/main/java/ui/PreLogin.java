@@ -1,16 +1,16 @@
 package ui;
 
-import client.ServerFacadeTests;
+import client.ServerFacade;
 
 import java.util.Scanner;
 
 import static java.lang.System.out;
 import static ui.EscapeSequences.*;
 
-public class preLogin {
+public class PreLogin {
 
-    ServerFacadeTests server;
-    postLogin postLogin;
+    ServerFacade server;
+    PostLogin postLogin;
 
     public void run(){
         boolean loggedIn = false;
