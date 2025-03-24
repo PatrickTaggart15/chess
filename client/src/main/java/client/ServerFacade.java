@@ -1,4 +1,4 @@
-package client;
+package client
 
 import com.google.gson.Gson;
 import model.GameData;
