@@ -98,46 +98,42 @@ public class ServerFacade {
         return request(method, endpoint, null);
     }
 
-    private Map request(String method, String endpoint, String body) {
-        Map respMap;
+    private HttpURLConnection setupConnection(String method, String endpoint, String body) throws URISyntaxException, IOException {
+        URI uri = new URI(baseURL + endpoint);
+        HttpURLConnection http = (HttpURLConnection) uri.toURL().openConnection();
+        http.setRequestMethod(method);
+
+        if (authToken != null) {
+            http.addRequestProperty("authorization", authToken);
+        }
+
+        if (body != null) {
+            http.setDoOutput(true);
+            http.addRequestProperty("Content-Type", "application/json");
+            try (var outputStream = http.getOutputStream()) {
+                outputStream.write(body.getBytes());
+            }
+        }
+
+        http.connect();
+        return http;
+    }
+
+    private Map<String, Object> request(String method, String endpoint, String body) {
         try {
-            URI uri = new URI(baseURL + endpoint);
-            HttpURLConnection http = (HttpURLConnection) uri.toURL().openConnection();
-            http.setRequestMethod(method);
+            HttpURLConnection http = setupConnection(method, endpoint, body);
 
-            if (authToken != null) {
-                http.addRequestProperty("authorization", authToken);
-            }
-
-            if (!Objects.equals(body, null)) {
-                http.setDoOutput(true);
-                http.addRequestProperty("Content-Type", "application/json");
-                try (var outputStream = http.getOutputStream()) {
-                    outputStream.write(body.getBytes());
-                }
-            }
-
-            http.connect();
-
-            try {
-                if (http.getResponseCode() == 401) {
-                    return Map.of("Error", 401);
-                }
-            } catch (IOException e) {
+            if (http.getResponseCode() == 401) {
                 return Map.of("Error", 401);
             }
 
-
             try (InputStream respBody = http.getInputStream()) {
                 InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-                respMap = new Gson().fromJson(inputStreamReader, Map.class);
+                return new Gson().fromJson(inputStreamReader, Map.class);
             }
-
         } catch (URISyntaxException | IOException e) {
             return Map.of("Error", e.getMessage());
         }
-
-        return respMap;
     }
 
     private String requestString(String method, String endpoint) {
@@ -145,45 +141,20 @@ public class ServerFacade {
     }
 
     private String requestString(String method, String endpoint, String body) {
-        String resp;
         try {
-            URI uri = new URI(baseURL + endpoint);
-            HttpURLConnection http = (HttpURLConnection) uri.toURL().openConnection();
-            http.setRequestMethod(method);
+            HttpURLConnection http = setupConnection(method, endpoint, body);
 
-            if (authToken != null) {
-                http.addRequestProperty("authorization", authToken);
-            }
-
-            if (!Objects.equals(body, null)) {
-                http.setDoOutput(true);
-                http.addRequestProperty("Content-Type", "application/json");
-                try (var outputStream = http.getOutputStream()) {
-                    outputStream.write(body.getBytes());
-                }
-            }
-
-            http.connect();
-
-            try {
-                if (http.getResponseCode() == 401) {
-                    return "Error: 401";
-                }
-            } catch (IOException e) {
+            if (http.getResponseCode() == 401) {
                 return "Error: 401";
             }
 
-
             try (InputStream respBody = http.getInputStream()) {
                 InputStreamReader inputStreamReader = new InputStreamReader(respBody);
-                resp = readerToString(inputStreamReader);
+                return readerToString(inputStreamReader);
             }
-
         } catch (URISyntaxException | IOException e) {
             return String.format("Error: %s", e.getMessage());
         }
-
-        return resp;
     }
 
     private String readerToString(InputStreamReader reader) {
