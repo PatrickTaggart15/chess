@@ -103,11 +103,17 @@ public class SQLGameDAO implements GameDAO {
     @Override
     public void updateGame(GameData game) throws DataAccessException{
         try (var conn = DatabaseManager.getConnection()) {
+
+            if (game == null || game.gameName() == null || game.game() == null) {
+                throw new DataAccessException("Game name or chessGame cannot be null");
+            }
+
             try (var statement = conn.prepareStatement("UPDATE game SET whiteUsername=?, blackUsername=?, gameName=?, chessGame=? WHERE gameID=?")) {
                 statement.setString(1, game.whiteUsername());
                 statement.setString(2, game.blackUsername());
                 statement.setString(3, game.gameName());
-                statement.setString(4, game.game().toString()); //
+                String gameString = game.game().toString();
+                statement.setString(4, gameString); //
                 statement.setInt(5, game.gameID());
                 statement.executeUpdate();
             }
