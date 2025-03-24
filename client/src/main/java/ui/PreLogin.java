@@ -10,12 +10,17 @@ import static ui.EscapeSequences.*;
 public class PreLogin {
 
     ServerFacade server;
-    PostLogin postLogin;
+    PostLogin postlogin;
 
-    public void run(){
+    public PreLogin(ServerFacade server) {
+        this.server = server;
+        postlogin = new PostLogin(server);
+    }
+
+    public void run() {
         boolean loggedIn = false;
         out.print(RESET_TEXT_COLOR + RESET_BG_COLOR);
-        out.println("Whats up? You here for chess? Enter 'help' to get started.");
+        out.println("Welcome to Chess! Enter 'help' to get started.");
         while (!loggedIn) {
             String[] input = getUserInput();
             switch (input[0]) {
@@ -23,51 +28,68 @@ public class PreLogin {
                     return;
                 case "help":
                     printHelpMenu();
+                    break;
                 case "login":
                     if (input.length != 3) {
-                        out.println("Provide a username and password");
+                        out.println("Please provide a username and password");
                         printLogin();
                         break;
                     }
                     if (server.login(input[1], input[2])) {
-                        out.println("Login Successful");
+                        out.println("You are now logged in");
                         loggedIn = true;
                         break;
-                    }
-                    else {
+                    } else {
                         out.println("Username or password incorrect, please try again");
                         printLogin();
+                        break;
+                    }
+                case "register":
+                    if (input.length != 4) {
+                        out.println("Please provide a username, password, and email");
+                        printRegister();
+                        break;
+                    }
+                    if (server.register(input[1], input[2], input[3])) {
+                        out.println("You are now registered and logged in");
+                        loggedIn = true;
+                        break;
+                    } else {
+                        out.println("Username already in use, please choose a new one");
+                        printRegister();
                         break;
                     }
                 default:
                     out.println("Command not recognized, please try again");
                     printHelpMenu();
                     break;
-
             }
         }
-        postLogin.run();
+
+        postlogin.run();
+
     }
 
-    private String[] getUserInput(){
-        out.print("/n LOGGED OUT] >>> ");
+    private String[] getUserInput() {
+        out.print("\n[LOGGED OUT] >>> ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().split(" ");
     }
 
-    private void printRegister(){
-        out.println("register <USERNAME> <PASSWORD> <EMAIL> - create a new user");
-    }
-
-    private void printLogin(){
-        out.println("login <USERNAME> <PASSWORD> - login to an existing user");
-    }
-
-    private void printHelpMenu(){
+    private void printHelpMenu() {
         printRegister();
         printLogin();
         out.println("quit - stop playing");
-        out.println("help = show this menu");
+        out.println("help - show this menu");
     }
+
+    private void printRegister() {
+        out.println("register <USERNAME> <PASSWORD> <EMAIL> - create a new user");
+    }
+
+    private void printLogin() {
+        out.println("login <USERNAME> <PASSWORD> - login to an existing user");
+    }
+
 
 }

@@ -39,7 +39,7 @@ public class PostLogin {
                     break;
                 case "create":
                     if (input.length != 2) {
-                        out.println("Provide a name");
+                        out.println("Please provide a name");
                         printCreate();
                         break;
                     }
@@ -48,7 +48,7 @@ public class PostLogin {
                     break;
                 case "join":
                     if (input.length != 3) {
-                        out.println("Provide a game ID and color choice");
+                        out.println("Please provide a game ID and color choice");
                         printJoin();
                         break;
                     }
@@ -64,7 +64,7 @@ public class PostLogin {
                     }
                 case "observe":
                     if (input.length != 2) {
-                        out.println("Provide a game ID");
+                        out.println("Please provide a game ID");
                         printObserve();
                         break;
                     }
@@ -86,7 +86,7 @@ public class PostLogin {
         }
 
         PreLogin prelogin = new PreLogin(server);
-        PreLogin.run();
+        prelogin.run();
     }
 
     private String[] getUserInput() {
@@ -131,4 +131,6 @@ public class PostLogin {
     private void printObserve() {
         out.println("observe <ID> - observe a game");
     }
+
+
 }
