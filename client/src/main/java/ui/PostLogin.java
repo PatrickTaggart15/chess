@@ -1,5 +1,6 @@
 package ui;
 
+import chess.ChessGame;
 import client.ServerFacade;
 import model.GameData;
 
@@ -46,26 +47,43 @@ public class PostLogin {
                     int gameID = server.createGame(input[1]);
                     out.printf("Created game, ID: %d%n", gameID);
                     break;
+
                 case "join":
-                    if (input.length != 3) {
-                        out.println("Provide a game ID and color choice");
+                    if (input.length != 3 || !input[1].matches("\\d") || !input[2].toUpperCase().matches("WHITE|BLACK")) {
+                        out.println("Please provide a game ID and color choice");
                         printJoin();
-                        break;
+                        return;
                     }
-                    int gameId;
-                    try {
-                        gameId = Integer.parseInt(input[1]);
-                    } catch (NumberFormatException e) {
-                        out.println("Invalid game ID. Please enter a valid number.");
+                    int gameNum = Integer.parseInt(input[1]);
+                    if (games.isEmpty() || games.size() <= gameNum) {
+                        refreshGames();
+                        if (games.isEmpty()) {
+                            out.println("Error: please first create a game");
+                            return;
+                        }
+                        if (games.size() <= gameNum) {
+                            out.println("Error: that Game ID does not exist");
+                            printGames();
+                            return;
+                        }
+                    }
+                    GameData joinGame = games.get(Integer.parseInt(input[1]));
+                    ChessGame.TeamColor color = input[2].equalsIgnoreCase("WHITE") ? ChessGame.TeamColor.WHITE : ChessGame.TeamColor.BLACK;
+                    boolean perspective = true;
+                    if (color == ChessGame.TeamColor.BLACK){
+                        perspective = false;
+                    }
+
+                    if (server.joinGame(joinGame.gameID(), input[2].toUpperCase())) {
+                        out.println("You have joined the game");
+                        new BoardPrinter(joinGame.game().getBoard()).printBoard(perspective);
+                        break;
+                    } else {
+                        out.println("Game does not exist or color taken");
                         printJoin();
                         break;
                     }
 
-                    if (gameId < 0 || gameId >= games.size()) {
-                        out.println("Game ID is out of range. Please enter a valid game ID.");
-                        printJoin();
-                        break;
-                    }
                 case "observe":
                     if (input.length != 2) {
                         out.println("Provide a game ID");
@@ -75,7 +93,7 @@ public class PostLogin {
                     GameData observeGame = games.get(Integer.parseInt(input[1]));
                     if (server.joinGame(observeGame.gameID(), null)) {
                         out.println("You have joined the game as an observer");
-                        new BoardPrinter(observeGame.game().getBoard()).printBoard();
+                        new BoardPrinter(observeGame.game().getBoard()).printBoard(true);
                         break;
                     } else {
                         out.println("Game does not exist. Sorry bro :(");

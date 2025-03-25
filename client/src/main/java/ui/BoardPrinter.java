@@ -17,27 +17,20 @@ public class BoardPrinter {
         this.board = board;
     }
 
-    void printBoard() {
+    void printBoard(boolean whitePerspective) {
         StringBuilder output = new StringBuilder();
         output.append(SET_TEXT_BOLD);
 
-        boolean reversed = true;
-        for (int j = 0; j < 2; j++) {
+        boolean reversed = !whitePerspective; // If white's perspective, not reversed; if black's, reversed
 
-            output.append(startingRow(reversed));
+        output.append(startingRow(reversed));
 
-            for (int i = 8; i > 0; i--) {
-                int row = !reversed ? i : (i * -1) + 9;
-                output.append(boardRow(row, reversed));
-            }
-
-            output.append(startingRow(reversed));
-            if (j < 1) {
-                output.append("\n");
-            }
-
-            reversed = false;
+        for (int i = 8; i > 0; i--) {
+            int row = !reversed ? i : (i * -1) + 9;
+            output.append(boardRow(row, reversed));
         }
+
+        output.append(startingRow(reversed));
         output.append(RESET_TEXT_BOLD_FAINT);
         out.println(output);
     }
