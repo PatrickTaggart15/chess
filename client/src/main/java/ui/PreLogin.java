@@ -31,7 +31,7 @@ public class PreLogin {
                     break;
                 case "login":
                     if (input.length != 3) {
-                        out.println("Please provide a username and password");
+                        out.println("Provide a sweet username and password");
                         printLogin();
                         break;
                     }
@@ -46,7 +46,7 @@ public class PreLogin {
                     }
                 case "register":
                     if (input.length != 4) {
-                        out.println("Please provide a username, password, and email");
+                        out.println("Provide a sweet username, password, and email");
                         printRegister();
                         break;
                     }
