@@ -48,17 +48,21 @@ public class PostLogin {
                     break;
                 case "join":
                     if (input.length != 3) {
-                        out.println("Provide a game ID and radical color choice");
+                        out.println("Provide a game ID and color choice");
                         printJoin();
                         break;
                     }
-                    GameData joinGame = games.get(Integer.parseInt(input[1]));
-                    if (server.joinGame(joinGame.gameID(), input[2].toUpperCase())) {
-                        out.println("You have joined the game! Good luck!!");
-                        new BoardPrinter(joinGame.game().getBoard()).printBoard();
+                    int gameId;
+                    try {
+                        gameId = Integer.parseInt(input[1]);
+                    } catch (NumberFormatException e) {
+                        out.println("Invalid game ID. Please enter a valid number.");
+                        printJoin();
                         break;
-                    } else {
-                        out.println("Game does not exist or color taken. Sorry bro :(");
+                    }
+
+                    if (gameId < 0 || gameId >= games.size()) {
+                        out.println("Game ID is out of range. Please enter a valid game ID.");
                         printJoin();
                         break;
                     }
