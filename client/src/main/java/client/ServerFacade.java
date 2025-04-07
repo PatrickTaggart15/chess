@@ -1,5 +1,6 @@
 package client;
 
+import chess.ChessGame;
 import com.google.gson.Gson;
 import model.GameData;
 import model.GamesList;
@@ -97,6 +98,7 @@ public class ServerFacade {
     private Map request (String method, String endpoint) {
         return request(method, endpoint, null);
     }
+
 
     private HttpURLConnection setupConnection(String method, String endpoint, String body) throws URISyntaxException, IOException {
         URI uri = new URI(baseURL + endpoint);

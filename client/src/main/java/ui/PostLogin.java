@@ -45,26 +45,26 @@ public class PostLogin {
                         break;
                     }
                     int gameID = server.createGame(input[1]);
-                    out.printf("Created game, ID: %d%n", gameID);
+                    out.printf("Created Game", gameID);
                     break;
 
                 case "join":
                     if (input.length != 3 || !input[1].matches("\\d") || !input[2].toUpperCase().matches("WHITE|BLACK")) {
                         out.println("Please provide a game ID and color choice");
                         printJoin();
-                        return;
+                        break;
                     }
                     int gameNum = Integer.parseInt(input[1]);
                     if (games.isEmpty() || games.size() <= gameNum) {
                         refreshGames();
                         if (games.isEmpty()) {
                             out.println("Error: please first create a game");
-                            return;
+                            break;
                         }
                         if (games.size() <= gameNum) {
                             out.println("Error: that Game ID does not exist");
                             printGames();
-                            return;
+                            break;
                         }
                     }
                     GameData joinGame = games.get(Integer.parseInt(input[1]));
@@ -90,8 +90,18 @@ public class PostLogin {
                         printObserve();
                         break;
                     }
+                    int gameNum1 = Integer.parseInt(input[1]);
+                    if (games.isEmpty() || games.size() <= gameNum1) {
+                        refreshGames();
+                        if (games.isEmpty() || games.size() <= gameNum1) {
+                            out.println("Error: that Game ID does not exist");
+                            printGames();
+                            break;
+                        }
+                    }
+
                     GameData observeGame = games.get(Integer.parseInt(input[1]));
-                    if (server.joinGame(observeGame.gameID(), null)) {
+                    if (true) {
                         out.println("You have joined the game as an observer");
                         new BoardPrinter(observeGame.game().getBoard()).printBoard(true);
                         break;
