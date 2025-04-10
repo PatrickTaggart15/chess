@@ -3,7 +3,6 @@ package service;
 import dataaccess.*;
 import model.AuthData;
 import model.UserData;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.UUID;
 
@@ -20,9 +19,7 @@ public class UserService {
     public AuthData createUser(UserData userData) throws BadRequestException {
 
         try {
-            String hashedPassword = BCrypt.hashpw(userData.password(), BCrypt.gensalt());
-            UserData hashedUserData = new UserData(userData.username(), hashedPassword, userData.email());
-            userDAO.createUser(hashedUserData);
+            userDAO.createUser(userData);
         } catch (DataAccessException e) {
             throw new BadRequestException(e.getMessage());
         }
@@ -33,20 +30,17 @@ public class UserService {
         return authData;
     }
 
-    public AuthData loginUser(UserData userRequestData) throws UnauthorizedException {
-        boolean userAuthenticated = false;
-
+    public AuthData loginUser(UserData userData) throws UnauthorizedException {
+        boolean userAuthenticated;
         try {
-            //Rehash the password
-            String password = userDAO.getUser(userRequestData.username()).password();
-            userAuthenticated = BCrypt.checkpw(userRequestData.password(), password);
-        } catch (DataAccessException noUser){
+            userAuthenticated = userDAO.authenticateUser(userData.username(), userData.password());
+        } catch (DataAccessException e) {
             throw new UnauthorizedException();
         }
 
         if (userAuthenticated) {
             String authToken = UUID.randomUUID().toString();
-            AuthData authData = new AuthData(userRequestData.username(), authToken);
+            AuthData authData = new AuthData(userData.username(), authToken);
             authDAO.addAuth(authData);
             return authData;
         }
@@ -64,6 +58,13 @@ public class UserService {
         authDAO.deleteAuth(authToken);
     }
 
+    public AuthData getAuth(String authToken) throws UnauthorizedException {
+        try {
+            return authDAO.getAuth(authToken);
+        } catch (DataAccessException e) {
+            throw new UnauthorizedException();
+        }
+    }
 
     public void clear() {
         userDAO.clear();
