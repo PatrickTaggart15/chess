@@ -4,8 +4,8 @@ import chess.ChessGame;
 import chess.ChessMove;
 import com.google.gson.Gson;
 import model.GameData;
-import webSocketMessages.serverMessages.ServerMessage;
-import webSocketMessages.userCommands.*;
+import websocket.commands.UserGameCommand;
+import websocket.messages.ServerMessage;
 
 import java.io.IOException;
 import java.util.*;
@@ -13,7 +13,7 @@ import java.util.*;
 public class ServerFacade {
 
     HttpCommunicator http;
-    WebsocketCommunicator ws;
+    WebSocketCommunicator ws;
     String serverDomain;
     String authToken;
 
@@ -60,7 +60,7 @@ public class ServerFacade {
 
     public void connectWS() {
         try {
-            ws = new WebsocketCommunicator(serverDomain);
+            ws = new WebSocketCommunicator(serverDomain);
         }
         catch (Exception e) {
             System.out.println("Failed to make connection with server");
