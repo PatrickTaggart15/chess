@@ -3,7 +3,7 @@ package client;
 import chess.ChessGame;
 import com.google.gson.Gson;
 import ui.BoardPrinter;
-import ui.GameplayREPL;
+import ui.GamePlay;
 import websocket.messages.ServerMessage;
 
 import javax.websocket.*;
@@ -15,11 +15,11 @@ import java.util.LinkedList;
 import static ui.EscapeSequences.ERASE_LINE;
 import static ui.EscapeSequences.moveCursorToLocation;
 
-public class WebsocketCommunicator extends Endpoint {
+public class WebSocketCommunicator extends Endpoint {
 
     Session session;
 
-    public WebsocketCommunicator(String serverDomain) throws Exception {
+    public WebSocketCommunicator(String serverDomain) throws Exception {
         try {
             URI uri = new URI("ws://" + serverDomain + "/connect");
 
@@ -66,8 +66,8 @@ public class WebsocketCommunicator extends Endpoint {
 
     private void printLoadedGame(ChessGame game) {
         System.out.print(ERASE_LINE + "\r\n");
-        GameplayREPL.boardPrinter.updateGame(game);
-        GameplayREPL.boardPrinter.printBoard(GameplayREPL.color, null);
+        GamePlay.boardPrinter.updateGame(game);
+        GamePlay.boardPrinter.printBoard(GamePlay.color, null);
         System.out.print("[IN-GAME] >>> ");
     }
 
