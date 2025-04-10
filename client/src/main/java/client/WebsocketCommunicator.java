@@ -4,9 +4,11 @@ import chess.ChessGame;
 import com.google.gson.Gson;
 import ui.BoardPrinter;
 import ui.GamePlay;
-import websocket.messages.ServerMessage;
 
-import javax.management.Notification;
+import websocket.messages.ServerMessage;
+import websocket.messages.LoadGame;
+import websocket.messages.Notification;
+
 import javax.websocket.*;
 import java.io.IOException;
 import java.net.URI;
@@ -16,11 +18,11 @@ import java.util.LinkedList;
 import static ui.EscapeSequences.ERASE_LINE;
 import static ui.EscapeSequences.moveCursorToLocation;
 
-public class WebSocketCommunicator extends Endpoint {
+public class WebsocketCommunicator extends Endpoint {
 
     Session session;
 
-    public WebSocketCommunicator(String serverDomain) throws Exception {
+    public WebsocketCommunicator(String serverDomain) throws Exception {
         try {
             URI uri = new URI("ws://" + serverDomain + "/connect");
 

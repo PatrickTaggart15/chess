@@ -13,7 +13,7 @@ import java.util.*;
 public class ServerFacade {
 
     HttpCommunicator http;
-    WebSocketCommunicator ws;
+    WebsocketCommunicator ws;
     String serverDomain;
     String authToken;
 
@@ -60,7 +60,7 @@ public class ServerFacade {
 
     public void connectWS() {
         try {
-            ws = new WebSocketCommunicator(serverDomain);
+            ws = new WebsocketCommunicator(serverDomain);
         }
         catch (Exception e) {
             System.out.println("Failed to make connection with server");
