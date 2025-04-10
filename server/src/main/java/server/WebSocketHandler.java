@@ -13,6 +13,8 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import websocket.commands.*;
+import websocket.messages.LoadGame;
+import websocket.messages.Notification;
 import websocket.messages.ServerMessage;
 
 import java.io.IOException;
